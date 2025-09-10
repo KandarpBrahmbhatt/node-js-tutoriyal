@@ -1,7 +1,7 @@
 const fs = require('fs')
 const path = require("path")
 
-const fileName = "fs.promicese.txt";
+const fileName = "fspromicese.txt";
 const filePath = path.join(__dirname,fileName)
 
 const file = __dirname;
