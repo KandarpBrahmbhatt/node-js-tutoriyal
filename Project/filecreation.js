@@ -12,14 +12,16 @@ const rl  =  readline.createInterface({
 const fileCreation = () =>{
     rl.question('Enter Your Filename :',(filename)=>[
         rl.question("Enter the content for your file: ",(content)=>{
-            fs.writeFile(`${filename}.txt`,content,(err)=>{
-                if(err){
-                    console.error(`Error Writing the file: , ${err.message} `)
+            fs.writeFile(`${filename}.txt`,content,(data)=>{
+                if(data){
+                    console.error(`Error Writing the file: , ${data.message} `)
                 }else{
                     console.log(`File "${filename}.txt" create sucessefully!`)
                 }
-                rl.close()
+                // rl.close()
+
             })
+            console.log("fdgd")
         })
     ])
 }
