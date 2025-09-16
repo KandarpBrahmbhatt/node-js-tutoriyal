@@ -1,5 +1,7 @@
 import https from 'http'
+import { type } from 'os';
 import readline from 'readline'
+import { isNumberObject } from 'util/types';
 
 const API_URL = 'http://universities.hipolabs.com/search';
 const COUNTRIES = ['India', 'USA', 'Canada', 'Thailand'];
@@ -10,10 +12,10 @@ const rl = readline.createInterface({
     output: process.stdout
 });
 
-// // Function to ask a question in terminal
-// function ask(question) {
-//     return new Promise(resolve => rl.question(question, answer => resolve(answer)));
-// }
+// Function to ask a question in terminal
+function ask(question) {
+    return new Promise(resolve => rl.question(question, answer => resolve(answer)));
+}
 
 // Fetch university data for a country
 function fetchUniversities(country) {
@@ -64,7 +66,7 @@ async function main() {
         for (let country of COUNTRIES) {
             try {
                 const unis = await fetchUniversities(country);
-                allUnis.push(...unis);
+                allUnis.push(...unis); 
             } catch (e) {
                 console.log(`Failed to fetch from ${country}`);
             }
@@ -73,8 +75,33 @@ async function main() {
         const randomUnis = getRandom(allUnis, NUMBER_OF_UNIS);
         displayUniversities(randomUnis);
 
-        console.log("Enter university numbers to see websites (e.g. 1,3,5)")
        
+        const input = await ask('\nEnter university numbers to see websites : ');
+if(Number.isInteger(parseInt(input))){
+    const nums = input.split(',').map(n => parseInt(n.trim()) - 1);
+        console.log('\nWebsites:\n');
+        nums.forEach(n => {
+            if (randomUnis[n]) { 
+                console.log(`${randomUnis[n].name}: ${randomUnis[n].website}`);
+
+            }
+        });
+
+        const repeat = await ask('\nDo you want to repeat? (y/n): ');
+        if (repeat.toLowerCase() !== 'y') {
+            console.log('Goodbye!');
+            rl.close();
+            break;
+        }
+           
+        }else{
+             console.log("you can tray again")
+        }
+
+
+        
+        
+    
     }
 }
 

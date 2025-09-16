@@ -1,5 +1,5 @@
 const http = require("http")
-
+ 
 // it iscalled and main useed in event 
 // createServer 2 parameter lese req,resp
 const server = http.createServer((req,res)=>{
